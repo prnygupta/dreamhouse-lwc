@@ -1,43 +1,46 @@
-<div>
-  Hello world
-  Here is the updated version 
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>GitHub API Request</title>
+    <title>GitHub OAuth Token Generation</title>
 </head>
 <body>
-    <h1>GitHub API Request Example</h1>
-    <p>Open the browser console to see the API response.</p>
-
+    <h1>Generate GitHub Access Token</h1>
+    <p>This example demonstrates how to use the GitHub OAuth API to generate an access token using a client ID and client secret.</p>
+    <pre id="result"></pre>
     <script>
-        const token = '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'; // Replace with your actual token
-        const filename = 'Create_property'; // Replace with the filename you're searching for
+        // Replace these with your own client ID and client secret
+        const clientId = 'Ov23liFvic6lIjePjkCt';
+        const clientSecret = '863db0e00122bbdcd88c9fba5fbd16fbdeba5008';
 
-        const url = "https://github.com/api/v3/search/code";
-        const headers = {
-            'Authorization': Bearer ${token},
-            'Content-Type': 'application/json',
-            'Accept': 'application/vnd.github.v3+json'
-        };
+        // You will also need a valid code, which GitHub provides as part of the OAuth flow after user authorization
+        const code = 'CODE_FROM_GITHUB_OAUTH_CALLBACK';
 
-        const params = new URLSearchParams({
-            q: 'Create_property' in:file repo:prnygupta/dreamhouse-lwc ref:master
-        });
+        async function getAccessToken(clientId, clientSecret, code) {
+            const url = 'https://github.com/login/oauth/access_token';
+            const params = {
+                client_id: clientId,
+                client_secret: clientSecret,
+             
+            };
 
-        fetch(${url}?${params.toString()}, {
-            method: 'GET',
-            headers: headers
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('API Response:', data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(params)
+            });
+
+            const data = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+            return data;
+        }
+
+        // Uncomment below to trigger the token request (ensure you have a valid 'code')
+        // getAccessToken(clientId, clientSecret, code);
+
     </script>
 </body>
 </html>
-</div>
