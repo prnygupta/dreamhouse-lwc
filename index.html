@@ -35,11 +35,13 @@
 
             const data = await response.json();
             document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+              console.log(data);
             return data;
         }
 
         // Uncomment below to trigger the token request (ensure you have a valid 'code')
-        // getAccessToken(clientId, clientSecret, code);
+         getAccessToken(clientId, clientSecret, code);
+      
 
     </script>
 </body>
