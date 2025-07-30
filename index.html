@@ -1,4 +1,43 @@
 <div>
   Hello world
   Here is the updated version 
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GitHub API Request</title>
+</head>
+<body>
+    <h1>GitHub API Request Example</h1>
+    <p>Open the browser console to see the API response.</p>
+
+    <script>
+        const token = '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'; // Replace with your actual token
+        const filename = 'Create_property'; // Replace with the filename you're searching for
+
+        const url = "https://github.com/api/v3/search/code";
+        const headers = {
+            'Authorization': Bearer ${token},
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github.v3+json'
+        };
+
+        const params = new URLSearchParams({
+            q: ${filename} in:file repo:prnygupta/dreamhouse-lwc ref:master
+        });
+
+        fetch(${url}?${params.toString()}, {
+            method: 'GET',
+            headers: headers
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('API Response:', data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    </script>
+</body>
+</html>
 </div>
